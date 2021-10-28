@@ -189,6 +189,15 @@ Follow the examples to build cartograms that display your region of interest bas
 ut_pop <- cartogram_cont(ut.census, "pop", itermax = 5)
 tm_shape(ut_pop) + tm_polygons("pop", style = "jenks") +
   tm_layout(frame = FALSE, legend.position = c("left", "bottom")) 
+
+# get counties
+ut.counties <- tigris::counties(state="UT",cb=TRUE)
+# try a different population visualization with non-contiguous area
+ut_pop_ncont <- cartogram_ncont(ut.census, "pop")
+tm_shape(ut.counties) + tm_borders() +
+  tm_shape(ut_pop_ncont) +
+  tm_polygons("pop", style = "jenks") +
+  tm_layout(frame = FALSE, legend.outside=TRUE) 
 ```
 
 ```{r income}
