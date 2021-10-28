@@ -22,8 +22,15 @@ _By the end of the assignment_ you should have several static maps displaying th
 
 # Task 1: Show me your ugly maps!!
 Find 2 examples of maps that you think are 'bad'. 
+![A useless map that shows distance of each county from the coast, inexplicably using the unit of "county."](terrible_map.png)
+![A map showing 2016 election results by land area, and without any labels.](weird_election_map.png)
+
 _Question 1_ Why are they bad? What might improve them? 
+On the most basic level, these maps are bad because they don't really mean anything. I struggle to think of any scenario, ever, in which you would need to know how many counties away from the coast a particular county is, when "county" is a totally meaningless and wide-ranging unit of distance. The second map is slightly more interesting, but it's equally unclear exactly why or when it would matter. I suppose it's one way of showing that, for many states, less populated areas might be more red? It's also pretty useless in that the lack of state labels make it hard to even know what you're looking at. I generally know where all the states are, but with this organization I'd be hard-pressed to differentiate between, say, Indiana and Iowa in any functional or accessible way. 
+
 _Question 2_ Rely on the Healy and Wilke texts to provide some structure to your answers.
+To expand on the above, it would appear that both of these maps got the science/data right (albeit for fairly uninteresting questions, in my opinion), but got the art really wrong. The color choice for the first map (counties) also doesn't have a consistent distance-related gradient, meaning it would look bad as a black-and-white image and likely would not work well for a color-blind person. 
+
 
 # Task 2: Load your libraries and build a dataframe
 You can choose whichever datasets you'd like from the past several months as the subject for your mapping. You'll need to use at least one tabular join, one spatial join, and one extraction to create the dataframe. Load the packages, the data, and make sure everything is projected here. Give me a sense for what you are hoping to map.
@@ -31,18 +38,18 @@ You can choose whichever datasets you'd like from the past several months as the
 library(ggplot2)
 library(tidyverse)
 library(pander)
+library(dplyr)
 library(sf)
 library(units)
 library(terra)
-install.packages("cartogram")
+# install.packages("cartogram")
 library(cartogram)
-install.packages("ggmap")
+# install.packages("ggmap")
 library(ggmap)
 library(tmap)
-install.packages("patchwork")
+# install.packages("patchwork")
 library(patchwork)
-
-
+library(viridis)
 ```
 
 ```{r load_data}
