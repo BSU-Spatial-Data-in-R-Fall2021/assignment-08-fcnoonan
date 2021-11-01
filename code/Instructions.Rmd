@@ -187,7 +187,7 @@ ggmap(bg) +
 Follow the examples to build cartograms that display your region of interest based on variables other than area.
 ```{r population}
 ut_pop <- cartogram_cont(ut.census, "pop", itermax = 5)
-tm_shape(ut_pop) + tm_polygons("pop", style = "jenks") +
+tm_shape(ut_pop) + tm_polygons("pop", style = "jenks", title="County Population (2019)") +
   tm_layout(frame = FALSE, legend.position = c("left", "bottom")) 
 
 # get counties
@@ -196,20 +196,42 @@ ut.counties <- tigris::counties(state="UT",cb=TRUE)
 ut_pop_ncont <- cartogram_ncont(ut.census, "pop")
 tm_shape(ut.counties) + tm_borders() +
   tm_shape(ut_pop_ncont) +
-  tm_polygons("pop", style = "jenks") +
+  tm_polygons("pop", style = "jenks", title="County Population (2019)") +
   tm_layout(frame = FALSE, legend.outside=TRUE) 
 ```
 
 ```{r income}
+# cartogram based on county income
 ut_inc <- cartogram_cont(ut.census, "medianincome", itermax = 5)
-tm_shape(ut_inc) + tm_polygons("pop", style = "jenks") +
+tm_shape(ut_inc) + tm_polygons("medianincome", style = "jenks", title="Median Household Income (2019)") +
   tm_layout(frame = FALSE, legend.position = c("left", "bottom")) 
+
+# different style of cartogram
+ut_inc_ncont <- cartogram_ncont(ut.census, "medianincome")
+tm_shape(ut.counties) + tm_borders() +
+  tm_shape(ut_inc_ncont) +
+  tm_polygons("medianincome", style = "jenks", title="Median Household Income (2019)") +
+  tm_layout(frame = FALSE, legend.outside=TRUE) 
+# looks like true trash
 ```
 
 _Question 3:_ Reflect on the different maps you've made, what do the different visualizations tell you about the data you plotted?
+Generally speaking, the maps tell me that species richness is higher in southern and western Utah and less-populated places, which are also areas with lower mean median income and lower land values. Species richness is lower around major urban areas with higher populations (namely, the SLC area), which also have higher mean median household income and land values. The maps that combine species richness and demographic data are more useful than the separately-visualized population and income data. That said, the cartograms make income and population more straightforward.
+
 
 _Question 4:_ How might you improve the maps you've made?
+For the map with the species richness raster under the population by buffered protected areas polygons, I might visualize the data in a way that doesn't obscure the species richness under the opacity of the population polygons. In that map, the species richness histogram also isn't completely intuitive, so I would want to adjust that for clarity. 
+
+The chloropleth with median income is fine, but is somewhat disrupted by 1) the amount of missing data and 2) the direction of the color gradient. It's not intuitive (at least to me) for lower income to be a darker color, so I'd probably reverse the color ramp. 
+
+The map that shows land values is interesting but difficult to interpret. The different transparency levels are hard to distinguish both on the map and in the legend, and the legend itself does not indicate the point of the transparency levels. Part of the issue with this is the overlap in the buffered protected areas, so maybe there are ways to work around that to improve the visualization.
+
+The cartograms that use a different size/color of county polygon to represent larger or smaller populations/incomes are also aesthetically horrible. The ones that warp the shape of Utah work better, so I would just use those instead of the non-continuous version.
+
 
 _Question 5:_ Is a map the best way to evaluate the data you worked with? Why or Why not?
+I think a map is a great way to explore this data and start seeing patterns that might be interesting to explore further. However, the patterns created by overlaying data don't really say anything about trends, they don't point toward decision-making options, and they don't necessarily imply anything about what the patterns mean. What does it mean that protected areas near SLC have higher land values and higher incomes associated? Does that mean anything for conservation values on the ground in those protected areas? What are the species captured by species richness, and would these maps change substantially if we included abundance?
+
+Although the cartograms are more straightforward and might be one of the better ways to visualize and/or evaluate the population and income data, they do not have the level of granularity that might lead to any kind of policy or management decision. For example, the income data do not say anything about income inequality or more granular patterns within counties. 
 
 
