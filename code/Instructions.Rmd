@@ -27,10 +27,11 @@ Find 2 examples of maps that you think are 'bad'.
 
 _Question 1_ Why are they bad? What might improve them? 
 On the most basic level, these maps are bad because they don't really mean anything. I struggle to think of any scenario, ever, in which you would need to know how many counties away from the coast a particular county is, when "county" is a totally meaningless and wide-ranging unit of distance. The second map is slightly more interesting, but it's equally unclear exactly why or when it would matter. I suppose it's one way of showing that, for many states, less populated areas might be more red? It's also pretty useless in that the lack of state labels make it hard to even know what you're looking at. I generally know where all the states are, but with this organization I'd be hard-pressed to differentiate between, say, Indiana and Iowa in any functional or accessible way. 
+__MW: Nice work, these are hideous! Even if the distance question were interesting, the size of a county varies so dramatically, I don't know how to interpret that as a unit of measure. The second has pie charts and I don't know that we need to say anything else about it. That said, one thing that you didn't mention (and that contradicts the justification you offered for why someone would have done this in the first place) is that the dots are scaled by area (not population). I spent the first few minutes thinking that large dot in the upper left was CA, but I'm pretty sure it's AK.__
 
 _Question 2_ Rely on the Healy and Wilke texts to provide some structure to your answers.
 To expand on the above, it would appear that both of these maps got the science/data right (albeit for fairly uninteresting questions, in my opinion), but got the art really wrong. The color choice for the first map (counties) also doesn't have a color ramp that goes in one, consistent direction (goes from dark to light and back to dark again via different colors), meaning it would look bad as a black-and-white image and likely would not work well for a color-blind person. 
-
+__MW: well done__
 
 # Task 2: Load your libraries and build a dataframe
 You can choose whichever datasets you'd like from the past several months as the subject for your mapping. You'll need to use at least one tabular join, one spatial join, and one extraction to create the dataframe. Load the packages, the data, and make sure everything is projected here. Give me a sense for what you are hoping to map.
@@ -138,6 +139,7 @@ summary.df <- pa.summary %>%
   left_join(., mammal.zones) %>% 
   left_join(., landval.zones)
 head(summary.df)
+#MW: interesting that Bears Ears doesn't have census info?
 ```
 
 
@@ -157,6 +159,7 @@ tm_shape(summary.df) +
   tm_polygons(col = "meanpop",  border.col = "white", title="Mean Population") + 
   tm_legend(outside = TRUE)
 ```
+__MW: The second map is a nice one; I agree that the histogram is hard to interpret as is, but with some fidling this could be ready for publication__
 
 # Task 4: Build a choropleth with ggplot
 Your map should have a basemap, should rely on more than one aesthetic (color, transparency, etc), and combine multiple layers.
@@ -233,5 +236,5 @@ _Question 5:_ Is a map the best way to evaluate the data you worked with? Why or
 I think a map is a great way to explore this data and start seeing patterns that might be interesting to explore further. However, the patterns created by overlaying data don't really say anything about trends, they don't point toward decision-making options, and they don't necessarily imply anything about what the patterns mean. What does it mean that protected areas near SLC have higher land values and higher incomes associated? Does that mean anything for conservation values on the ground in those protected areas? What are the species captured by species richness, and would these maps change substantially if we included abundance?
 
 Although the cartograms are more straightforward and might be one of the better ways to visualize and/or evaluate the population and income data, they do not have the level of granularity that might lead to any kind of policy or management decision. For example, the income data do not say anything about income inequality or more granular patterns within counties. 
-
+__MW: Great job, Fiona! I think the transparency aesthetic is one that I'd like to work on as well. It makes sense intuitiveluy, but so far I haven't found a good way to make the visualization obvious__
 
